@@ -77,41 +77,41 @@ Using the ``:t`` function in ``ghci`` we can query the type:
 * Haskell's type system is rich and powerful, and we will only scratch the surface
 * Haskell allows us to define our own types using the ``data`` keyword
     * The ``data`` keyword defines *type constructors*
-    * Every type can have zero or more *value (data) constructors* associated with it 
+    * Every type can have zero or more *value (data) constructors* associated with it
     * A *data (value) constructor* is a function which generates an *instance* of a *type*
     * Type and data constructors are *always* capitalized
 #### Single-valued types
 
-> data Singleton  = Singleton 
-> data Simpleton  = Simpleton Int
+> data Nullary  = Nullary
+> data Singleton  = Singleton Int
 > data FunnyShape = NamedPoint String Int Int
-> 
+>
+> :t Nullary
 > :t Singleton
-> :t Simpleton
 > :t NamedPoint
 
 
 Use of ADTs in functions, note the use of *pattern matching*:
 
-> f :: Int -> Simpleton
-> f x = Simpleton (x + 1)
-> 
-> g :: Simpleton -> Int
-> g (Simpleton x) = x
-> 
+> f :: Int -> Singleton
+> f x = Singleton (x + 1)
+>
+> g :: Singleton -> Int
+> g (Singleton x) = x
+>
 > g (f 1)
 
 
 #### Multi-valued types
 
 > data Shape = Point Float Float | Rect Float Float Float Float | Circle Float Float Float
-> 
+>
 > f :: Shape -> String
 > f (Point a b) = "Point at " ++ show a ++ ", " ++ show b
 > f (Rect _ _ _ _) = "Rectangle"
 > f (Circle _ _ r ) = "Circle, r = " ++ show r
-> 
-> f (Point 0.0 0.0) 
+>
+> f (Point 0.0 0.0)
 > f (Circle 1.0 2.0 3.0)
 
 
@@ -123,16 +123,16 @@ Use of ADTs in functions, note the use of *pattern matching*:
 
 > data Maybe a = Nothing | Just a deriving (Show)
 > data Either a b = Left a | Right b deriving (Show)
-> 
+>
 > f :: Float -> Maybe Float
 > f x = if x < 0.0 then Nothing else Just (sqrt x)
-> 
+>
 > f 2.0
 > f (-1.0)
-> 
+>
 > g :: Float -> Either String Float
 > g x = if x < 0.0 then Left "Fail!" else Right (sqrt x)
-> 
+>
 > g 2.0
 > g (-1.0)
 
@@ -143,22 +143,22 @@ Use of ADTs in functions, note the use of *pattern matching*:
 
 > getPointX :: Shape -> Float
 > getPointX (Point x _) = x
-> 
+>
 > data Shape = Point {
 >       posX :: Float
->     , posY :: Float  
->     } 
+>     , posY :: Float
+>     }
 >     | Circle {
 >       posX :: Float
 >     , posY :: Float
 >     , radius :: Float
 >     } deriving (Show)
-> 
+>
 > p = Point 1.0 2.0
 > c = Circle 1.0 2.0 3.0
 > posX p
 > posY p
-> 
+>
 > posX c
 > posY c
 > radius c
@@ -177,13 +177,13 @@ Use of ADTs in functions, note the use of *pattern matching*:
 ``type`` creates a type alias which can be used interchangably with the aliased type
 
 > type String = [Char]
-> 
+>
 > f :: String -> Int
 > f = length
-> 
+>
 > f' :: [Char] -> Int
 > f' = length
-> 
+>
 > f ['f', 'o', 'o']
 > f' "foo"
 
@@ -191,10 +191,10 @@ Use of ADTs in functions, note the use of *pattern matching*:
 ``newtype`` creates a new *type constructor`` aliasing the original type, but they cannot be used interchangably
 
 > newtype Stringy = Stringy [Char]
-> 
+>
 > f :: Stringy -> Int
 > f (Stringy x) = length x
-> 
+>
 > f (Stringy "foo")
 > f (Stringy ['f', 'o', 'o'])
 > f ['f', 'o', 'o']
@@ -204,7 +204,7 @@ Use of ADTs in functions, note the use of *pattern matching*:
 * Types can be recursive, i.e. contain themselves
 * Recursive types are e.g. used to define lists, trees, etc.
 
-> data Lst a = Nil | Lst a (Lst a) 
+> data Lst a = Nil | Lst a (Lst a)
 > l = Lst 1 (Lst 2 (Lst 3 Nil))
 
 
@@ -212,7 +212,7 @@ Use of ADTs in functions, note the use of *pattern matching*:
 * Typeclasses are interfaces for some behavior
 * Typeclasses are contracts for types
 * If a type implements a typeclass, it promises to behave accoring to the typeclass specification
-* Typeclasses allow us to overload functions and operators for types  
+* Typeclasses allow us to overload functions and operators for types
 
 > :t 1
 
@@ -237,16 +237,16 @@ Use of ADTs in functions, note the use of *pattern matching*:
 
 > data Foo = Foo Int
 > data Bar = Bar String
-> 
+>
 > instance Hello Foo where
 >     hello (Foo n) = unwords (replicate n "Hello")
-> 
+>
 > instance Hello Bar where
 >     hello (Bar s) = "Hello " ++ s ++ ", " ++ s
-> 
+>
 > f :: Hello a => a -> String
 > f x = world x
-> 
+>
 > f (Foo 5)
 > f (Bar "silly")
 
@@ -273,17 +273,17 @@ We can still not do anything about *a*:
 
 > data Foo a = Foo Int a
 > data Bar a = Bar Float a
-> 
+>
 > f :: Foo a -> Bar a
 > f (Foo x y) = Bar (fromIntegral x) y
 
 
-#### Typeclasses 
+#### Typeclasses
 Adding a type constraint allows us to use generic types in a controlled manner
 
 > f :: (Eq a, Show a) => a -> a -> String
 > f x y = if x == y then "ok" else show x ++ " /= " ++ show y
-> 
+>
 > f "hello" "world"
 > f 42 42
 > f 1.0 2.0
@@ -298,19 +298,19 @@ Adding a type constraint allows us to use generic types in a controlled manner
 > import Data.Char
 > class Wow a where
 >     g :: String -> a
-> 
+>
 > instance Wow String where
 >     g s = s ++ ", " ++ s
-> 
+>
 > instance Wow Int where
 >     g s = length s
->     
+>
 > instance Wow Bool where
 >     g s = if length s > 0 then True else False
-> 
+>
 > instance Wow Float where
 >     g s = fromIntegral . foldl (\acc x -> acc + ord x) 0 $ s
-> 
+>
 > g "hello" :: String
 > g "hello" :: Int
 > g "hello" :: Bool
@@ -323,11 +323,11 @@ Adding a type constraint allows us to use generic types in a controlled manner
     * Boxed: ``*``
     * Unboxed: ``#``
 * We can inspect the kind of a type (value constructor) in ``ghci`` using the ``:k`` command
-* Type constructors can be thought of as lambda functions in kind space 
+* Type constructors can be thought of as lambda functions in kind space
 
 > data Simple = Simple Int Float String
 > data Param a b = Param a b
-> 
+>
 > :k Simple
 > :k Param
 
