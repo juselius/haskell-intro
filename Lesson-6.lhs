@@ -8,7 +8,7 @@
 Apply a function to *all* elements of a list, and return a new list:
 
 > map (*2) [1..10]
-> map (\x -> if odd x then 2 * x else 2 * (x + 1))
+> map (\x -> if odd x then 2 * x else 2 * (x + 1)) [1..10]
 
 
 ### filter
@@ -36,10 +36,10 @@ Apply a function to the elements of a list and accumulate.
 
 > thesum = foldl (+) 0
 > thesum [1..10]
-> 
+>
 > oddsum = foldl (\acc x -> if odd x then acc + x else x) 0
 > oddsum [1..10]
-> 
+>
 > sumlist = foldr (\x acc -> (x + sum acc):acc) []
 > sumlist [1..10]
 
@@ -51,10 +51,10 @@ Apply a function to the elements of a list and accumulate.
 
 > fac 1 = 1
 > fac k = k * fac (k-1)
-> 
-> fac' 0 x = x 
+>
+> fac' 0 x = x
 > fac' n x = fac' (n - 1) (n * x)
-> 
+>
 > fac 100
 > fac' 100 0
 
@@ -64,7 +64,7 @@ Apply a function to the elements of a list and accumulate.
 > len x = len' x 0
 > len' [] n = n
 > len' (x:xs) n = len' xs (n + 1)
-> 
+>
 > len [1..10]
 
 
