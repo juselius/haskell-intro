@@ -1,5 +1,5 @@
-# Lesson 7
-## IO
+ # Lesson 7
+ ## IO
 
 * All IO in Haskell happens in the *IO monad*
 * Functions running in the IO monad are identified by returning the
@@ -19,4 +19,36 @@
 > main :: IO ()
 > main = print "Hello world!"
 
-### Reading and writing files
+ ### ``do`` notation
+* Haskell has a special syntax for doing IO (actually for monadic computations)
+* ``do`` allows us to write imperative code while reatining functional safety
+* Variable assignment is done using the special ``<-`` operator,
+  which extracts the value out of the ``IO a`` type container.
+
+ ### Reading from standard in
+``getContents`` reads input lazily from stdin:
+
+> main = do
+>   s <- getContents
+>   putStrLn s
+> 
+> :t getContents
+> :t putStrLn
+> :t print
+
+ ### Reading and writing files
+``readFile`` and ``writeFile`` read and write files:
+
+> main = do
+>   putStrLn "Let's do some IO!"
+>   revfile "Lesson-7.lhs"
+>   putStrLn "done."
+> 
+> revfile :: String -> IO ()
+> revfile f = do
+>   s <- readFile f
+>   writeFile "foo.lhs" $ reverse s
+> 
+> :t readFile
+> :t writeFile
+
