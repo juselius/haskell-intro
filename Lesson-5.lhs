@@ -1,10 +1,10 @@
-# Lesson 5
-## Higher-order functions
+ # Lesson 5
+ ## Higher-order functions
 
 > :option no-lint
 
 
-### Currying
+ ### Currying
 * Currying is also called *partial function application*
 * Currying is the act of calling a function with 
 fewer arguments than the *arity* of the function
@@ -32,7 +32,7 @@ fewer arguments than the *arity* of the function
 
 
 
-### Functions as function arguments
+ ### Functions as function arguments
 Functions can be passed as arguments to functions:
 
 > twice :: (a -> a) -> a -> a
@@ -47,7 +47,7 @@ Functions can be passed as arguments to functions:
 > cube (*) 2
 
 
-### Returning functions
+ ### Returning functions
 Functions can return functions:
 
 > fret :: Int -> (Float -> Float)
@@ -58,7 +58,7 @@ Functions can return functions:
 > :t g
 
 
-### Function transformations
+ ### Function transformations
 Functions can take functions as arguments and return  new functions:
 
 > i2f :: (Int -> Int) -> (Float -> Float)
@@ -71,7 +71,7 @@ Functions can take functions as arguments and return  new functions:
 > :t g
 
 
-### ETA reduction
+ ### ETA reduction
 * Haskell functions can often be simplified in an algebraic manner:
     * ``(\x -> abs x) == abs``
     * ``(f x = abs x) == f = abs``
@@ -84,7 +84,7 @@ Functions can take functions as arguments and return  new functions:
 
 
 
-## Function composition
+ ## Function composition
 * Function composition is a powerfult technique for building complexity from simpler units
 * Function composition is common in many languages:
 ```
@@ -104,11 +104,11 @@ Functions can take functions as arguments and return  new functions:
 > f''' x = negate . abs
 
 
-#### Composition combinators
+ #### Composition combinators
 * Combinators are functions which combine functions (of some sort, in some way) to procuce new functions
 * Combinators are a very powerful techique and are much used, in particular in embedded domain specific languages (EDSLs)
 
-#### Composition and currying
+ #### Composition and currying
 We can easily curry functions in function compostition:
 
 > clever = "There are two ways of constructing a software design:\nOne way is to make it so simple that there are obviously no deficiencies\nThe other way is to make it so complicated that there are no obvious deficiencies. -- C.A.R. Hoare\n\nOne of my most productive days was throwing away 1000 lines of code. -- Ken Thompson\n\nIt's a curious thing about our industry:\nNot only do we not learn from our mistakes, we also don't learn from our successes. -- Keith Braithwaite\n\nAnd folks, let’s be honest. Sturgeon was an optimist. Way more than 90% of code is crap. -- Al Viro"
@@ -144,7 +144,7 @@ A more advance example, including composition of a function returning a function
 > print $ f 41
 
 
-### Using compostition to avoid repetition
+ ### Using compostition to avoid repetition
 
 > poem = unlines [
 >       "There was a young lady named Bright"
@@ -156,7 +156,7 @@ A more advance example, including composition of a function returning a function
 > putStrLn poem
 
 
-#### Composition
+ #### Composition
 
 > import Data.List (sort)
 > 
@@ -167,7 +167,7 @@ A more advance example, including composition of a function returning a function
 > putStrLn . process'' $ poem
 
 
-#### Avoiding repetition
+ #### Avoiding repetition
 
 > sortLines     = unlines . sort . lines
 > reverseLines  = unlines . reverse . lines

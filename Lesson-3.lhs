@@ -1,6 +1,6 @@
-# Lesson 3
+ # Lesson 3
 
-## Pattern matching
+ ## Pattern matching
 
 * In pattern matching we attempt to match values against patterns
 * If desired, we can bind variables to successful matches
@@ -20,7 +20,7 @@
 > :option no-lint
 
 
-### Matching function argument values
+ ### Matching function argument values
 
 > f x = case x of
 >     0 -> False
@@ -33,7 +33,7 @@
 > f' _ = False
 
 
-### Matching tuples and binding variables
+ ### Matching tuples and binding variables
 
 > g (_, 1) = 42
 > g (a, b) = a + b
@@ -48,7 +48,7 @@
 > g' (11,22,33,44)
 
 
-### Matching lists
+ ### Matching lists
 
 > g :: [Int] -> Int
 > g [] = 0

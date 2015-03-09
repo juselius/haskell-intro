@@ -1,12 +1,12 @@
-# Lesson 2
+ # Lesson 2
 
-## Lists
+ ## Lists
 * Lists are immensly imortant in Haskell
 * Lists have dynamic length
 * Lists are homogenous
 * The default lists are simple, but not very efficient
 
-### List construction
+ ### List construction
 * The list constructor is ``(:)``
 * The empty list is ``[]``
 
@@ -29,7 +29,7 @@
 > print ranges'
 
 
-### List comparison
+ ### List comparison
 
 > [3,2,1] > [2,1,0]
 > [3,2,1] > [2,10,100]
@@ -38,7 +38,7 @@
 > [3,2,1] == [2,10,100,1000]
 
 
-### List functions
+ ### List functions
 
 > l = [1..10]
 > head l
@@ -58,7 +58,7 @@
 > take 10 [1..]
 
 
-### List comprehensions
+ ### List comprehensions
 
 > l' = [x^2 | x <- [1..10]]
 > l'' = [x^2 | x <- [1..10], x `mod` 2 == 0]
@@ -80,7 +80,7 @@
 > length' l
 
 
-## Tuples
+ ## Tuples
 
 * Tuples have static length
 * Tuples can be heterogenous
