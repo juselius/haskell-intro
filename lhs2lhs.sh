@@ -1,5 +1,5 @@
 #!/bin/bash
 
 for i in $*; do
-    sed -i 's/^#/ #/; s/^>$/> /' $i
+    sed -i 's/^#/ #/' $i
 done

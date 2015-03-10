@@ -26,8 +26,8 @@
 >     0 -> False
 >     1 -> True
 >     _ -> False
-> 
-> 
+>
+>
 > f' 0 = False
 > f' 1 = True
 > f' _ = False
@@ -38,13 +38,13 @@
 > g (_, 1) = 42
 > g (a, b) = a + b
 > g x = fst x + snd x
-> 
+>
 > g (111, 1)
 > g (1,2)
-> 
-> g' x = let (_,_,c,_)  = x 
+>
+> g' x = let (_,_,c,_)  = x
 >     in c
->     
+>
 > g' (11,22,33,44)
 
 
@@ -57,7 +57,7 @@
 > g (x:y:z:[]) = x + y + z
 > g (x:y:xs) = sum xs
 > g x = sum x
-> 
+>
 > g []
 > g [1]
 > g [1,2]

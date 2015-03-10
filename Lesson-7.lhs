@@ -31,7 +31,7 @@
 > main = do
 >   s <- getContents
 >   putStrLn s
-> 
+>
 > :t getContents
 > :t putStrLn
 > :t print
@@ -43,12 +43,12 @@
 >   putStrLn "Let's do some IO!"
 >   revfile "Lesson-7.lhs"
 >   putStrLn "done."
-> 
+>
 > revfile :: String -> IO ()
 > revfile f = do
 >   s <- readFile f
 >   writeFile "foo.lhs" $ reverse s
-> 
+>
 > :t readFile
 > :t writeFile
 

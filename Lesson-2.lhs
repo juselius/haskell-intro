@@ -19,7 +19,7 @@
 > letters = "hello"
 > ranges  = [1..10]
 > ranges' = [1.0,1.5..10.0]
-> 
+>
 > print (numbers ++ [1])
 > print $ numbers ++ numbers'
 > putStrLn $ letters ++ " world"
@@ -86,7 +86,7 @@
 * Tuples can be heterogenous
 * The tuple constructor is ``(,)`` (and pals)
 
-> tp = (1,2) 
+> tp = (1,2)
 > tp' = (1,'a',"hello")
 > fst tp
 > snd tp

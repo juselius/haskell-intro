@@ -121,12 +121,12 @@
 >     a + b
 >     where
 >         b = a^2 + 1
-> 
+>
 > myFunc' a =
 >     let b = b' + 1
 >         b' = a^2
 >     in a + b
-> 
+>
 > myFunc 2
 > myFunc' 2
 
@@ -139,7 +139,7 @@
 >     if x > 0
 >         then x
 >         else abs x
-> 
+>
 > abs' 1
 > abs' (-1)
 
@@ -152,7 +152,7 @@
 >     "HW" -> "HELLO WORLD!"
 >     "sl" -> "Sing song, so long."
 >     _    -> "Que?"
-> 
+>
 > hello "hw"
 > hello "hello"
 
@@ -167,7 +167,7 @@
 >     | weight / height ^ 2 <= 25.0 = "You're supposedly normal."
 >     | weight / height ^ 2 <= 30.0 = "You're a heavy weight champion!"
 >     | otherwise                   = "You're a whale, congratulations!"
-> 
+>
 > bmi' weight height
 >     | idx <= skinny = "You're underweight, you emo!"
 >     | idx <= normal = "You're supposedly normal."
@@ -178,7 +178,7 @@
 >         skinny = 18.5
 >         normal = 25.0
 >         heavy  = 30.0
-> 
+>
 > bmi' 93.0 1.85
 
 
