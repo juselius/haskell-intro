@@ -2,6 +2,7 @@ module Main where
 import Control.Monad
 import Control.Concurrent
 import Control.Concurrent.STM
+import System.Exit
 
 main :: IO ()
 main = do
@@ -12,6 +13,7 @@ main = do
     forever $ do
         void . atomically $ takeTMVar lock
         val <- atomically $ readTVar shared
+        when (val > 10) exitSuccess
         print val
 
 countup :: TMVar () -> TVar Int -> IO ()
