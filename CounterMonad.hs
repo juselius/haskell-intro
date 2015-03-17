@@ -1,4 +1,5 @@
 import Control.Applicative -- definition of typeclass Applicative
+import Control.Monad
 
 data Count a = Count Int a deriving (Show, Eq)
 
@@ -13,7 +14,7 @@ instance Applicative Count where
 instance Monad Count where
     return = Count 0
     x >>= g = let (Count n (Count n' y)) = fmap g x in Count (n + n') y
-    (>>) x g = x >>= \_ -> g
+    (>>) x g = x >>= const g
 
 main :: IO ()
 main = do
@@ -34,7 +35,7 @@ main = do
     printit "applicative functor 3"    (pure fun' <*> x <*> x)
     putStrLn "---"
     printit "monad 0"                  (funM 10)
-    printit "monad 1"                  (return 10 >>= funM >>= funM)
+    printit "monad 1"                  (funM 10 >>= funM)
     printit "monad 2"                  (pure 10 >>= funM >> return 42)
     printit "monad 3"                  (x >>= funM >>= funM >>= funM)
     where
@@ -51,7 +52,7 @@ verifyApplicativeLaws = do
     where
         identity = (pure id <*> w) == w
         comp = (pure (.) <*> u <*> v <*> w) == (u <*> (v <*> w))
-        homo = (pure f <*> pure 1 :: Count Int) == (pure (f 1))
+        homo = (pure f <*> pure 1 :: Count Int) == pure (f 1)
         inter = (u <*> pure 1) == (pure ($ 1) <*> u)
         f = (+1)
         u = Count 1 (*2)
@@ -65,9 +66,9 @@ verifyMonadLaws = do
     putStrLn $ "right identity: " ++ show rightId
     putStrLn $ "associativity : " ++ show assoc
     where
-        leftId = (return 1 >>= u) == (u 1)
+        leftId = (return 1 >>= u) == u 1
         rightId = (w >>= return) == w
-        assoc = (w >>= (\x -> u x >>= v)) == ((w >>= u) >>= v)
+        assoc = (w >>= (u >=> v)) == ((w >>= u) >>= v)
         u x = Count 0 (x * 2)
         v x = Count 0 (x + 3)
         w = Count 0 (1 :: Int)
